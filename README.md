@@ -1,4 +1,3 @@
-# 
 ---
 Page_type: Azure Resource Creation 
 Languages: ARM Templates
