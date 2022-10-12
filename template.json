@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_computervision_name": {
+            "defaultValue": "computervision",
+            "type": "String"
+        },
+        "accounts_yogigdemocomputer_name": {
+            "defaultValue": "yogigdemocomputer",
+            "type": "String"
+        },
+        "accounts_yogigdemocomputer_Prediction_name": {
+            "defaultValue": "yogigdemocomputer-Prediction",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2021-10-01",
+            "name": "[parameters('accounts_computervision_name')]",
+            "location": "East US",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "ComputerVision",
+            "properties": {
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2021-10-01",
+            "name": "[parameters('accounts_yogigdemocomputer_name')]",
+            "location": "eastus",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "CustomVision.Training",
+            "properties": {
+                "customSubDomainName": "[parameters('accounts_yogigdemocomputer_name')]",
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2021-10-01",
+            "name": "[parameters('accounts_yogigdemocomputer_Prediction_name')]",
+            "location": "eastus",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "CustomVision.Prediction",
+            "properties": {
+                "customSubDomainName": "yogigdemocomputer-prediction",
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Enabled"
+            }
+        }
+    ]
+}
